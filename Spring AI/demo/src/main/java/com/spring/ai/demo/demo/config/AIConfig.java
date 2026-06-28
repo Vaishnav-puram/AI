@@ -23,7 +23,7 @@ public class AIConfig {
         return ChatClient.builder(ollamaChatModel)
                 .defaultSystem("You are a helpful coding AI assistant")
                 .defaultOptions(OllamaChatOptions.builder()
-                        .model("codellama:latest")
+                        .model("phi3:mini")
                         .temperature(0.7)
                         .build())
                 .build();
