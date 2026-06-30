@@ -1,5 +1,6 @@
 package com.spring.ai.demo.demo.config;
 
+import com.spring.ai.demo.demo.advisors.TokenPrintAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -25,7 +26,7 @@ public class AIConfig {
 
         //to set default options
         return ChatClient.builder(ollamaChatModel)
-                .defaultAdvisors(new SimpleLoggerAdvisor(),new SafeGuardAdvisor(List.of("punch")))
+                .defaultAdvisors(new TokenPrintAdvisor(),new SimpleLoggerAdvisor(),new SafeGuardAdvisor(List.of("punch")))
                 .defaultSystem("You are a helpful coding AI assistant")
                 .defaultOptions(OllamaChatOptions.builder()
                         .model("phi3:mini")
