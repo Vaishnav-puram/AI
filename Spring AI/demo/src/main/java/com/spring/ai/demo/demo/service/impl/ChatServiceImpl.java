@@ -21,15 +21,18 @@ public class ChatServiceImpl implements ChatService<String> {
 
     private ChatClient ollamaAIChatClient;
 
+    private ChatClient ollamaAIChatMemoryClient;
+
     @Value("classpath:/prompts/user-message.st")
     private Resource userMessage;
 
     @Value("classpath:/prompts/system-message.st")
     private Resource systemMessage;
 
-    public ChatServiceImpl(@Qualifier("openAIChatClient") ChatClient openAIChatClient, @Qualifier("ollamaAIChatClient") ChatClient ollamaAIChatClient){
+    public ChatServiceImpl(@Qualifier("openAIChatClient") ChatClient openAIChatClient, @Qualifier("ollamaAIChatClient") ChatClient ollamaAIChatClient, @Qualifier("ollamaAIChatMemoryClient") ChatClient ollamaAIChatMemoryClient){
         this.openAIChatClient=openAIChatClient;
         this.ollamaAIChatClient=ollamaAIChatClient;
+        this.ollamaAIChatMemoryClient=ollamaAIChatMemoryClient;
     }
 
     @Override
@@ -165,6 +168,14 @@ public class ChatServiceImpl implements ChatService<String> {
                 .user(user->
                         user.text(this.userMessage).param("concept",query))
                 .stream()
+                .content();
+    }
+
+    @Override
+    public String chatMemory(String query) {
+        return ollamaAIChatMemoryClient
+                .prompt(query)
+                .call()
                 .content();
     }
 }

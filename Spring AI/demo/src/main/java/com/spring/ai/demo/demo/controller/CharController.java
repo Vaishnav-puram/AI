@@ -55,4 +55,11 @@ public class CharController {
 
         return ResponseEntity.ok(chatService.streamChat(query));
     }
+
+    @GetMapping("/chatMemory")
+    public ResponseEntity<String> chatMemory(@RequestParam(value = "query",required = true)String query){
+
+        String response = (String) chatService.chatMemory(query);
+        return ResponseEntity.ok(response);
+    }
 }

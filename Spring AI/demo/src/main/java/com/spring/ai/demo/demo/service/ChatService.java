@@ -10,4 +10,6 @@ public interface ChatService <T> {
     T chatAdvisors(String query);
 
     Flux<String> streamChat(String query);
+
+    T chatMemory(String query);
 }

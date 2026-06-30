@@ -2,8 +2,10 @@ package com.spring.ai.demo.demo.config;
 
 import com.spring.ai.demo.demo.advisors.TokenPrintAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -27,6 +29,25 @@ public class AIConfig {
         //to set default options
         return ChatClient.builder(ollamaChatModel)
                 .defaultAdvisors(new TokenPrintAdvisor(),new SimpleLoggerAdvisor(),new SafeGuardAdvisor(List.of("punch")))
+                .defaultSystem("You are a helpful coding AI assistant")
+                .defaultOptions(OllamaChatOptions.builder()
+                        .model("phi3:mini")
+                        .temperature(0.7)
+                        .numPredict(512)
+                        .build())
+                .build();
+    }
+
+    @Bean(name = "ollamaAIChatMemoryClient")
+    public ChatClient ollamaAiChatMemoryModel(OllamaChatModel ollamaChatModel, ChatMemory chatMemory){
+        // return ChatClient.builder(ollamaChatModel).build();
+
+        //Chat Memory
+        MessageChatMemoryAdvisor messageChatMemoryAdvisor=MessageChatMemoryAdvisor.builder(chatMemory).build();
+
+        //to set default options
+        return ChatClient.builder(ollamaChatModel)
+                .defaultAdvisors(messageChatMemoryAdvisor,new TokenPrintAdvisor(),new SimpleLoggerAdvisor(),new SafeGuardAdvisor(List.of("punch")))
                 .defaultSystem("You are a helpful coding AI assistant")
                 .defaultOptions(OllamaChatOptions.builder()
                         .model("phi3:mini")
