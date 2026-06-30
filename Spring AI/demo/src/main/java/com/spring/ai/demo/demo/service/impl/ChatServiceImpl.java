@@ -2,6 +2,7 @@ package com.spring.ai.demo.demo.service.impl;
 
 import com.spring.ai.demo.demo.service.ChatService;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
@@ -140,13 +141,14 @@ public class ChatServiceImpl implements ChatService<String> {
     }
 
     @Override
-    public String chatAdvisors() {
+    public String chatAdvisors(String query) {
         return ollamaAIChatClient
                 .prompt()
+//                .advisors(new SimpleLoggerAdvisor())
                 .system(system->
                         system.text(this.systemMessage))
                 .user(user->
-                        user.text(this.userMessage).param("concept","java for loop"))
+                        user.text(this.userMessage).param("concept",query))
                 .call()
                 .content();
     }

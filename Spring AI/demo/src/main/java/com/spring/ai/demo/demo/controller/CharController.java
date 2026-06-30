@@ -41,4 +41,11 @@ public class CharController {
         String response = (String) chatService.chatTemplateByFiles();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/chatAdvisors")
+    public ResponseEntity<String> chatAdvisors(@RequestParam(value = "query",required = true)String query){
+
+        String response = (String) chatService.chatAdvisors(query);
+        return ResponseEntity.ok(response);
+    }
 }

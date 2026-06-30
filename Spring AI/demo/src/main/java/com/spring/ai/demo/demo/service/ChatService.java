@@ -5,5 +5,5 @@ public interface ChatService <T> {
     T chatTemplate();
 
     T chatTemplateByFiles();
-    T chatAdvisors();
+    T chatAdvisors(String query);
 }
