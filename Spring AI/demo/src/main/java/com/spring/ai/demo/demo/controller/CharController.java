@@ -34,4 +34,11 @@ public class CharController {
         String response = (String) chatService.chatTemplate();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/chatAdvisors")
+    public ResponseEntity<String> chatAdvisors(){
+
+        String response = (String) chatService.chatAdvisors();
+        return ResponseEntity.ok(response);
+    }
 }

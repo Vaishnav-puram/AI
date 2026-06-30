@@ -6,6 +6,8 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -16,6 +18,12 @@ public class ChatServiceImpl implements ChatService<String> {
     private ChatClient openAIChatClient;
 
     private ChatClient ollamaAIChatClient;
+
+    @Value("classpath:/prompts/user-message.st")
+    private Resource userMessage;
+
+    @Value("classpath:/prompts/system-message.st")
+    private Resource systemMessage;
 
     public ChatServiceImpl(@Qualifier("openAIChatClient") ChatClient openAIChatClient, @Qualifier("ollamaAIChatClient") ChatClient ollamaAIChatClient){
         this.openAIChatClient=openAIChatClient;
@@ -117,5 +125,17 @@ public class ChatServiceImpl implements ChatService<String> {
 
         return this.ollamaAIChatClient.prompt(prompt).call().content();
 
+    }
+
+    @Override
+    public String chatAdvisors() {
+        return ollamaAIChatClient
+                .prompt()
+                .system(system->
+                        system.text(this.systemMessage))
+                .user(user->
+                        user.text(this.userMessage).param("concept","java for loop"))
+                .call()
+                .content();
     }
 }
