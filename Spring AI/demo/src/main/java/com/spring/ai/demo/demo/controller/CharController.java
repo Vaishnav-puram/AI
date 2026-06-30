@@ -62,4 +62,11 @@ public class CharController {
         String response = (String) chatService.chatMemory(query);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/chatMemoryByConversationId")
+    public ResponseEntity<String> chatMemory(@RequestParam(value = "query",required = true)String query,@RequestHeader("userID")String userID){
+
+        String response = (String) chatService.chatMemoryByConvID(query,userID);
+        return ResponseEntity.ok(response);
+    }
 }

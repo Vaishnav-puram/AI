@@ -3,6 +3,7 @@ package com.spring.ai.demo.demo.service.impl;
 import com.spring.ai.demo.demo.service.ChatService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
@@ -175,6 +176,15 @@ public class ChatServiceImpl implements ChatService<String> {
     public String chatMemory(String query) {
         return ollamaAIChatMemoryClient
                 .prompt(query)
+                .call()
+                .content();
+    }
+
+    @Override
+    public String chatMemoryByConvID(String query, String userID) {
+        return ollamaAIChatMemoryClient
+                .prompt(query)
+                .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID,userID))
                 .call()
                 .content();
     }

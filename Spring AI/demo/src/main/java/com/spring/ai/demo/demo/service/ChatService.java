@@ -12,4 +12,6 @@ public interface ChatService <T> {
     Flux<String> streamChat(String query);
 
     T chatMemory(String query);
+
+    T chatMemoryByConvID(String query, String userID);
 }
