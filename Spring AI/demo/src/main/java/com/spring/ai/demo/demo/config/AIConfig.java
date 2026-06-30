@@ -31,6 +31,7 @@ public class AIConfig {
                 .defaultOptions(OllamaChatOptions.builder()
                         .model("phi3:mini")
                         .temperature(0.7)
+                        .numPredict(512)
                         .build())
                 .build();
     }
