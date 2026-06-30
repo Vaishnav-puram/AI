@@ -22,9 +22,16 @@ public class CharController {
     }
 
     @GetMapping("/chat")
-    public ResponseEntity<List<AIResponse>> chat(@RequestParam(value = "query",required = true)String query){
-        List<AIResponse> results= (List<AIResponse>) chatService.chat(query);
+    public ResponseEntity<String> chat(@RequestParam(value = "query",required = true)String query){
+ //       List<AIResponse> results= (List<AIResponse>) chatService.chat(query);
+        String response = (String) chatService.chat(query);
+        return ResponseEntity.ok(response);
+    }
 
-        return ResponseEntity.ok(results);
+    @GetMapping("/chatTemplate")
+    public ResponseEntity<String> chatTemplate(){
+        //       List<AIResponse> results= (List<AIResponse>) chatService.chat(query);
+        String response = (String) chatService.chatTemplate();
+        return ResponseEntity.ok(response);
     }
 }
