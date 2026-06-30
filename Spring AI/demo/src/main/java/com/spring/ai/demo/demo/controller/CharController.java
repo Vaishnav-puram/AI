@@ -8,6 +8,7 @@ import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -47,5 +48,11 @@ public class CharController {
 
         String response = (String) chatService.chatAdvisors(query);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/streamChat")
+    public ResponseEntity<Flux<String>> streamChat(@RequestParam(value = "query",required = true)String query){
+
+        return ResponseEntity.ok(chatService.streamChat(query));
     }
 }
