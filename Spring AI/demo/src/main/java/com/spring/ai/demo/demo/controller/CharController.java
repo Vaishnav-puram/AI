@@ -35,10 +35,10 @@ public class CharController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/chatAdvisors")
-    public ResponseEntity<String> chatAdvisors(){
+    @GetMapping("/chatTemplateByFiles")
+    public ResponseEntity<String> chatTemplateByFiles(){
 
-        String response = (String) chatService.chatAdvisors();
+        String response = (String) chatService.chatTemplateByFiles();
         return ResponseEntity.ok(response);
     }
 }

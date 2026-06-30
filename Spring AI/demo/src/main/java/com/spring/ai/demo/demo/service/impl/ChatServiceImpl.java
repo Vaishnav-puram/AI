@@ -128,6 +128,18 @@ public class ChatServiceImpl implements ChatService<String> {
     }
 
     @Override
+    public String chatTemplateByFiles() {
+        return ollamaAIChatClient
+                .prompt()
+                .system(system->
+                        system.text(this.systemMessage))
+                .user(user->
+                        user.text(this.userMessage).param("concept","java for loop"))
+                .call()
+                .content();
+    }
+
+    @Override
     public String chatAdvisors() {
         return ollamaAIChatClient
                 .prompt()
