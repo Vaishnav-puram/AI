@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring.ai.demo</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>rag-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>first-project</name>
-	<description>Demo project for Spring AI</description>
+	<description>Demo project for Spring AI - RAG</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -34,10 +34,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.ai</groupId>
-			<artifactId>spring-ai-starter-model-openai</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
